@@ -3,8 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
-      
+      - main  # Replace with your default branch name if different
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20'
+        node-version: '20'  # Use the version of Node.js your project requires
 
     - name: Install dependencies
       run: npm install
@@ -27,10 +27,14 @@ jobs:
         VITE_API_URL: ${{ secrets.VITE_API_URL }}
         # Add other secrets here if needed
 
+    - name: Configure Git
+      run: |
+        git config --global user.email "arijitacharjee2002@gmail.com"
+        git config --global user.name "coderracharya"
+
     - name: Deploy to GitHub Pages
       run: npm run deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # Ensure VITE_API_URL is available during deployment as well
         VITE_API_URL: ${{ secrets.VITE_API_URL }}
         # Add other secrets here if needed
